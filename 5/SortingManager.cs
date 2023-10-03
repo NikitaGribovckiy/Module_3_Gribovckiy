@@ -1,4 +1,9 @@
-﻿class SortingManager
+﻿using System;
+
+// Делегат для метода сортировки
+delegate void SortDelegate(int[] arr);
+
+class SortingManager
 {
     // Метод сортировки пузырьком
     public void BubbleSort(int[] arr)

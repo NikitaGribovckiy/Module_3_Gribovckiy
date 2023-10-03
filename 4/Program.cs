@@ -4,6 +4,9 @@ using System.Linq;
 
 class Program
 {
+    // Делегат для фильтрации данных
+    delegate bool DataRecordFilter(DataRecord record);
+
     static void Main(string[] args)
     {
         List<DataRecord> data = new List<DataRecord>();
@@ -50,23 +53,30 @@ class Program
                 break; // Выход из программы
             }
 
+            Func<DataRecord, bool> filter = null;
+
             switch (choice)
             {
                 case "1":
                     Console.Write("Введите текст для фильтрации: ");
                     string searchText = Console.ReadLine();
-                    FilterData(data, s => s.Text.Contains(searchText));
+                    filter = record => record.Text.Contains(searchText);
                     break;
 
                 case "2":
                     Console.Write("Введите дату для фильтрации: ");
                     string dateStr2 = Console.ReadLine();
-                    FilterData(data, s => s.Date.Contains(dateStr2));
+                    filter = record => record.Date.Contains(dateStr2);
                     break;
 
                 default:
                     Console.WriteLine("Некорректный выбор. Пожалуйста, выберите действие из списка.");
                     break;
+            }
+
+            if (filter != null)
+            {
+                FilterData(data, filter);
             }
         }
     }

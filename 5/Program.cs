@@ -1,5 +1,4 @@
 ﻿using System;
-
 class Program
 {
     static void Main(string[] args)
@@ -42,15 +41,15 @@ class Program
                 break; // Выход из программы
             }
 
-            Action<int[]> sortMethod = null;
+            SortDelegate sortMethod = null;
 
             switch (choice)
             {
                 case "1":
-                    sortMethod = sortingManager.BubbleSort; // Установка метода сортировки пузырьком
+                    sortMethod = sortingManager.BubbleSort; // Установка делегата на метод сортировки пузырьком
                     break;
                 case "2":
-                    sortMethod = sortingManager.QuickSort; // Установка метода быстрой сортировки
+                    sortMethod = sortingManager.QuickSort; // Установка делегата на метод быстрой сортировки
                     break;
                 default:
                     Console.WriteLine("Некорректный выбор. Пожалуйста, выберите метод сортировки из списка.");
@@ -61,7 +60,7 @@ class Program
             {
                 int[] sortedNumbers = new int[numbers.Length];
                 Array.Copy(numbers, sortedNumbers, numbers.Length);
-                sortMethod(sortedNumbers); // Выполнение выбранной сортировки
+                sortMethod(sortedNumbers); // Выполнение выбранной сортировки с использованием делегата
 
                 Console.WriteLine("Отсортированный массив:");
                 foreach (int num in sortedNumbers)
